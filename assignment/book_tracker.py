@@ -11,7 +11,7 @@ def estimate_reading_time(pages):
 
 #Information the user will enter
 def add_book():
-    title = input("Enter the book title: ")
+    title = input("Enter the book title: ").title()
     author = input("Enter the Author's name: ")
     pages = int(input("How many pages are in the book?  "))
     hours = estimate_reading_time(pages)
