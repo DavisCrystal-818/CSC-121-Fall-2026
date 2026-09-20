@@ -13,7 +13,7 @@ def get_words(filename):
 
 
 def save_counts(counts):
-    with open("counts.csv", "w") as f:
+    with open("counts.csv", "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["Word", "Count"])
         for word, count in sorted(counts.items(), key=lambda x: x[1], reverse=True):
