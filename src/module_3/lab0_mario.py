@@ -8,10 +8,11 @@ def main():
 
 def pyramid(n):
      for i in range(n):
-         print("#" * (i + 1)) #i skipped line 1 and did not add line 3 with 3 hashtags/number symbols, so added +1 so we can actually recieve the result necessary. I also tested using 4 and 5.
+         print("#" * (i + 1))
 
  
  
-main()
+if __name__ == "__main__":
+    main()
 
 
