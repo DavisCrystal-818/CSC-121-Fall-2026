@@ -1,4 +1,6 @@
 # Builds the Header of the library seen by the user
+import csv
+
 def dashboard(): 
     print('_' * 40)
     print("📚 YOUR LIBRARY")
@@ -35,11 +37,31 @@ def add_book(library):
             "pages": pages,
             "hours": hours}
     library.append(book)
+    with open("books.csv", "a", newline = "") as books:
+        writer = csv.DictWriter(books, fieldnames=["title", "author", "pages", "hours"])
+        writer.writerow(book)
+        
     print("Book added:")
     print(f"'{title}' by {author} -- approx. {hours} hours to read")
 
+
 #Library of books 
-# shows all books currently in the user's library.
+# shows all books currently in the user's library.    
+
+def load_books():
+    library = []
+    with open("books.csv", "r", newline="") as contents:
+        read = csv.DictReader(contents)
+        for book in read:
+            book["pages"] = int(book["pages"])
+            book["hours"] = float(book["hours"])
+            library.append(book)
+    return library
+    
+def format_book(book, number):
+    return ( f"{number}. '{book['title']}' - {book['author']} "f"({book['pages']} pages - approx. {book['hours']} hours to read)")
+    
+
 def view_books(library):
     if len(library) == 0:  # If no books have been added let the user know the library is empty
         print("Your library is empty. Add a book first!")
@@ -48,11 +70,13 @@ def view_books(library):
         for book_index in range(len(library)):
             book = library[book_index] # Get the book dictionary stored at the current position
 
-            print( f"{book_index + 1}. '{book['title']}' - {book['author']} "
-                   f"({book['pages']} pages - approx. {book['hours']} hours to read)")  # Added 1 because Python indexes from 0, but the displayed list should start at 1
+            print(format_book(book, book_index +1))  # Added 1 because Python indexes from 0, but the displayed list should start at 1
+
 def main():
-    library = [] #Creates an emply list
+    library = load_books()  # Loads previously saved books from books.csv
     dashboard() #shows the library header before menu starts
+
+    
 
     #need to add what happens when user chooses a menu option. Look at built QuiziMe in prior project for help.
     while True:
